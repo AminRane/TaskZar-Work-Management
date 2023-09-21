@@ -1,0 +1,75 @@
+{% extends 'employee/index.html' %}
+
+{% block content %}
+<div class="container">
+    <h3 id="form-title">Project Details</h3>
+    <div class="card card-body" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75);margin-top:1em">
+        <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Title</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ project.title }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Description</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{project.description}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Assignee</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{project.assignee.full_name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Project Manager</p>
+              </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{project.project_manager.full_name}}</p>
+              </div>
+            </div>
+        <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Due Date</p>
+              </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{project.due_date}}</p>
+              </div>
+            </div>
+        <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Team Members</p>
+              </div>
+            <div class="col-sm-9">
+                {% for member in members%}
+                <p class="text-muted mb-0">{{member.user.full_name}}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+            {% if request.user.is_admin %}
+                <a href="{% url 'delete-project' project.id %}"><button class="btn btn-danger mt-3" style="margin-right:1em">Delete</button></a>
+
+            {% endif %}
+
+    {% block addmember %}
+    {% if request.user.is_project_manager %}
+        <a href="{% url 'add-members' %}"><button class="btn btn-primary mt-3" style="margin-right:1em">Add Member</button></a>
+        <a href="{% url 'team-member-details' %}"><button class="btn btn-primary mt-3">Member Details</button></a>
+    {% endif %}
+    {% endblock %}
+</div>
+{% endblock content %}

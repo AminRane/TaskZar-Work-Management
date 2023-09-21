@@ -1,0 +1,83 @@
+{% extends 'employee/index.html' %}
+{% block content %}
+    <style>
+        .col-sm-auto.icon{
+            padding-right:0px;
+        }
+.fixedbutton {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    vertical-align: middle;
+    border-radius: 50%
+}
+        .fixedbutton:hover::after {
+             color: white;
+             content: "New Project" ;
+    }
+        .fixedbutton:hover {
+             vertical-align: middle;
+            border-radius: 0.25rem;
+        }
+
+    </style>
+<div class="container-fluid cover">
+    <div class="row" style="display: inline-block;width:100%">
+        <div class="col-sm-auto" style="display: block;float: left">
+                <h3>Project List</h3>
+        </div>
+        <div class="col-sm-auto" style="display: block;float: right">
+        </div>
+    </div>
+    <div class="card fixed_header">
+        <table class="table list" style="width:auto">
+            <thead class="table-light">
+            <tr>
+                <th style="width: 30%;">
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="material-icons" style="font-size:16px">sort</i>
+                        </div>
+                        <div class="col-sm-auto">Title</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="material-icons th-icons" style="font-size:16px">alternate_email</i>
+                        </div>
+                        <div class="col-sm-auto">Project Manager</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="bi bi-calendar-week-fill" style="font-size:16px"></i>
+                        </div>
+                        <div class="col-sm-auto">Due Date</div>
+                    </div>
+                </th>
+
+            </thead>
+            <tbody class="list">
+            {% for project in projects %}
+
+            <tr onclick="location.href='{% url 'project-detail' project.id %}'">
+                <td>{{project.title}}</td>
+                <td style="padding-left: 13px">{{project.project_manager.full_name}}</td>
+                <td>{{project.due_date}}</td>
+
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-primary fixedbutton" onclick="location.href='{% url 'add-project' %}'"><span style="vertical-align: middle;font-size:1em"><i class="material-icons" style="">add</i></span></button>
+    </div>
+
+    </div>
+
+<script>
+
+</script>
+{% endblock content %}

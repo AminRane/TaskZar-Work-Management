@@ -1,0 +1,38 @@
+{% extends 'employee/index.html' %}
+
+{% block content %}
+<style>
+.form-group {
+	margin-top:10px;
+}
+</style>
+<div class="container-fluid">
+	<h3 id="form-title">REGISTER EMPLOYEE</h3>
+
+<form action="" method="Post">
+	{% csrf_token %}
+	{{form.as_p}}
+
+	<div class="form-group">
+
+		<button type="submit" class="btn btn-primary">Register</button>
+
+	</div>
+	{{form.errors}}
+</form>
+
+</div>
+
+<script>
+    var form_fields = document.getElementsByTagName('input')
+	var select = document.getElementsByTagName('select')
+	for (var sel in select){
+        select[sel].className += ' form-control'
+    }
+
+    for (var field in form_fields){
+    	form_fields[field].autocomplete = "off"
+        form_fields[field].className += ' form-control'
+    }
+</script>
+{% endblock content %}

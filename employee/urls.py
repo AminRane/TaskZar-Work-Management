@@ -1,0 +1,30 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.login_page, name="login"),
+    path('register/', views.register_employee, name="register"),
+    path('logout/', views.logout_user, name="logout"),
+    path('list/', views.list_page, name="list"),
+    path('search/', views.search_task, name="search"),
+    path('board/', views.board_page, name="board"),
+    path('calendar/', views.CalendarView.as_view(), name="calendar"),
+    path('profile/', views.profile_page, name="profile"),
+    path('update-profile/', views.update_profile_page, name="update-profile"),
+    path('update-profile-picture/', views.update_profile_picture_page, name="update-profile-picture"),
+    path('create-task-for-employee/', views.create_task_for_employee, name="create-task-for-employee"),
+    path('create-task/', views.create_task_page, name="create-task"),
+    path('add-project/', views.add_project, name="add-project"),
+    path('delete-project/<int:project_id>', views.delete_project, name="delete-project"),
+    path('project-details/', views.project_details, name="project-details"),
+    path('project-detail/<int:project_id>', views.project_detail, name="project-detail"),
+    path('add-members/', views.add_members, name="add-members"),
+    path('team-member-details/', views.member_details, name="team-member-details"),
+    path('employee-details/', views.employee_details, name="employee-details"),
+    path('track-task/<str:username>/', views.track_members_progress, name="track-task"),
+    path('task-details/<int:task_id>/', views.task_details, name="task-details"),
+    path('edit-task-details/<int:task_id>/', views.edit_task_details, name="edit-task-details"),
+    path('change-status/<int:task_id>/', views.change_task_status, name="change-status"),
+    path('password/', views.change_password, name='change_password'),
+    path('project-list/', views.list_of_projects, name='project-list'),
+]

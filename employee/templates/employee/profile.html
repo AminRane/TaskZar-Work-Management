@@ -1,0 +1,118 @@
+{% extends 'employee/index.html' %}
+
+{% block content %}
+
+<div class="row" >
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75);padding-bottom:2px">
+            {% if request.user.employeeprofile.profile_picture %}
+            <img onclick="location.href='{% url 'update-profile-picture' %}'" class="rounded-circle" style="border: 3px solid lightgrey;margin-left: auto;margin-right: auto;padding:1px"
+             height="96" width="96" src="{{ request.user.employeeprofile.profile_picture.url }}">
+            {% else %}
+        {% endif %}
+            <h5 class="mt-2 mb-0">{{request.user.full_name}}</h5>
+            <p class="text-muted mb-1">{{request.user.role}}</p>
+            <div class="d-flex justify-content-center mb-2 mt-2">
+              <a href="{% url 'update-profile' %}"><button type="button" class="btn btn-primary">Update</button></a>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-8" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{request.user.first_name}} {{request.user.last_name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Username</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{request.user.username}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{request.user.email}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Gender</p>
+              </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{request.user.gender}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+<div class="row" style="padding:2em;padding-right:0em">
+
+{% block updateform %}
+     <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+        <h4>Monthly Progress</h4>
+    <div class="row">
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <h5 class="my-3">Total Tasks</h5>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h2>{{ total_task }}</h2>
+            </div>
+          </div>
+        </div>
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <h5 class="my-3">Tasks Pending</h5>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h2>{{ tasks_pending }}</h2>
+            </div>
+          </div>
+        </div>
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <h5 class="my-3">Tasks Completed</h5>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h2>{{ tasks_completed }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+            <span style="margin-right: 10px"><i class="material-icons" style="color:#0d6efd;vertical-align: middle">stop</i>In Progress</span>
+            <span style="margin-right: 10px"><i class="material-icons" style="color:#198754;vertical-align: middle">stop</i>Done</span>
+            <span><i class="material-icons" style="color:#ffc107;vertical-align: middle">stop</i>To Do</span>
+
+        </div>
+    <div class="row" style="width:90%;margin: 0 auto">
+    <div class="progress" style="padding:0px">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+           style="width: {{ tasks_in_progress }}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">{{ tasks_in_progress }}%</div>
+      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+           style="width: {{ tasks_done }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">{{ tasks_done }}%</div>
+        <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar"
+             style="width: {{ tasks_to_do }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">{{ tasks_to_do }}%</div>
+</div>
+    </div>
+        </div>
+    </div>
+</div>
+
+{%endblock updateform %}
+</div>
+  {%endblock%}

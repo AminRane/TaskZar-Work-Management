@@ -1,0 +1,133 @@
+{% extends 'employee/index.html' %}
+{% block content %}
+    <style>
+        .col-sm-auto.icon{
+            padding-right:0px;
+        }
+        .col-sm-auto.priority{
+            padding-left:0px;
+            padding-right:0px;
+        }
+        #button-addon1:focus {
+            box-shadow: none;
+        }
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+    </style>
+<div class="container-fluid cover">
+     <form action="{% url 'search' %}" method="get">
+          <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" style="width:30%" >
+            <div class="input-group">
+              <input type="search" name="search" autocomplete="off" placeholder="Search" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+              <div class="input-group-append">
+                <button id="button-addon1" type="submit" class="btn btn-link text-primary" style="padding-top:10px"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+{#<form action="{% url 'search' %}" method="get">#}
+{#    <input type="text" name="search">#}
+{#    <input type="submit" name="submit" value="Search">#}
+{#</form>#}
+{% block list %}
+    <div class="card fixed_header">
+        <table class="table list" style="width:auto">
+            <thead class="table-light">
+            <tr>
+                <th style="width: 30%;">
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="material-icons" style="font-size:16px">sort</i>
+                        </div>
+                        <div class="col-sm-auto">Title</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="material-icons th-icons" style="font-size:16px">alternate_email</i>
+                        </div>
+                        <div class="col-sm-auto">Assignee</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="bi bi-calendar-week-fill" style="font-size:16px"></i>
+                        </div>
+                        <div class="col-sm-auto">Due Date</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="bi bi-arrow-right-circle" style="font-size:16px;display:inline-block"></i>
+                        </div>
+                        <div class="col-sm-auto">Status</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-auto icon" style="padding-top:4px">
+                            <i class="bi bi-caret-up-square" style="font-size:16px"></i>
+                        </div>
+                        <div class="col-sm-auto">Priority</div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="list">
+            {% for task in tasks %}
+
+            <tr onclick="location.href='{% url 'task-details' task.id %}'">
+                <td>{{task.title}}</td>
+                <td style="padding-left: 13px">{{task.assignee.full_name}}</td>
+                <td>{{task.due_date}}</td>
+                <td style="vertical-align:middle">
+                    {% if task.is_to_do %}
+                        <span style="border-radius: 5px;background-color:#ececf1;color:#213254;padding:0px 5px 3px;
+                        font-weight:bold;box-shadow:0px 2px 1px grey">{{task.status}}</span>
+
+                    {% elif task.is_in_progress %}
+                        <span style="border-radius: 5px;background-color:#b2d4ff;color:#1553ad;padding:0px 5px 3px;
+                        font-weight:bold;box-shadow:0px 2px 1px cornflowerblue">{{task.status}}</span>
+
+                    {% elif task.is_completed %}
+                        <span style="border-radius: 5px;background-color:#aaf4d1;color:#0a6f4d;padding:0px 5px 3px;
+                        font-weight:bold;box-shadow:0px 2px 1px limegreen">{{task.status}}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-auto icon">
+                            {% if task.is_lowest %}
+                            <i class="material-icons" style="color:dodgerblue">keyboard_double_arrow_down</i>
+                            {% elif task.is_low %}
+                            <i class="material-icons" style="color:dodgerblue">keyboard_arrow_down</i>
+                            {% elif task.is_medium %}
+                            <i class="material-icons" style="color:orange">drag_handle</i>
+                            {% elif task.is_highest %}
+                            <i class="material-icons" style="color:red">keyboard_double_arrow_up</i>
+                            {% elif task.is_critical %}
+                            <i class="material-icons" style="color:red;font-size:24px">report</i>
+                            {% endif %}
+                    </div>
+                    <div class="col-sm-auto priority">
+                    {{task.priority}}
+                    </div>
+                </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock list %}
+    </div>
+<script>
+</script>
+{% endblock content %}

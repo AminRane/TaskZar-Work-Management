@@ -1,0 +1,102 @@
+{% extends 'employee/index.html'%}
+{% load static %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-4" style="padding:2em;padding-top:0em">
+		<div class="card card-body" style="background-color: #f8f9fa">
+		<h6><span style="border-radius: 5px;background-color:#ececf1;color:#213254;padding:0px 5px 3px;font-weight:bold;
+margin-right: 1em;box-shadow:0px 2px 1px grey">
+			To Do</span>{{total_pending}}</h6>
+
+			{% for task in pending %}
+				<div class="card card-body board-content" onclick="location.href='{% url 'task-details' task.id %}'" style="margin-top:5px">
+					<div class="row title" style="font-size:17px;font-weight:500">
+						{{task.title}}
+					</div>
+					<div class="row" style="display:block">
+						{%if task.assignee%}
+						<div class="col-sm-auto" style="display:block;float:left;padding-left: 5px">
+							<span>
+								<span style="background-color:#f5f5f5;padding-right: 8px;border-radius:50px;">
+								<i class="fas fa-user-circle fa-lg" style="margin-right:5px"></i>
+								{{task.assignee.full_name}}
+								</span>
+							</span>
+						</div>
+						{% endif %}
+						<div class="col-sm-auto" style="float:right">
+						{{task.due_date}}
+						</div>
+					</div>
+					</div>
+
+			{% endfor %}
+
+		</div>
+	</div>
+
+	<div class="col-lg-4" style="padding:2em;padding-top:0em">
+		<div class="card card-body" style="background-color: #f8f9fa">
+		<h6><span style="border-radius: 5px;background-color:#b2d4ff;color:#1553ad;padding:0px 5px 3px;font-weight:bold;
+margin-right: 1em;box-shadow:0px 2px 1px cornflowerblue">
+			In Progress</span>{{total_progress}}</h6>
+
+			{% for task in in_progress %}
+				<div class="card card-body board-content" onclick="location.href='{% url 'task-details' task.id %}'" style="margin-top:5px">
+					<div class="row title" style="font-size:17px;font-weight:500">
+						{{task.title}}
+					</div>
+					<div class="row" style="display:block">
+						{%if task.assignee%}
+						<div class="col-sm-auto" style="display:block;float:left;padding-left: 5px">
+							<span>
+								<span style="background-color:#f5f5f5;padding-right: 8px;border-radius:50px;">
+								<i class="fas fa-user-circle fa-lg" style="margin-right:5px"></i>
+								{{task.assignee.full_name}}
+								</span>
+							</span>
+						</div>
+						{% endif %}
+						<div class="col-sm-auto" style="float:right">
+						{{task.due_date}}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+
+	<div class="col-lg-4" style="padding:2em;padding-top:0em">
+		<div class="card card-body" style="background-color: #f8f9fa">
+		<h6><span style="border-radius: 5px;background-color:#aaf4d1;color:#0a6f4d;padding:0px 5px 3px;font-weight:bold;
+margin-right: 1em;box-shadow:0px 2px 1px limegreen">
+			Completed</span>{{total_completed}}</h6>
+
+			{% for task in completed %}
+				<div class="card card-body board-content" onclick="location.href='{% url 'task-details' task.id %}'" style="margin-top:5px">
+					<div class="row title" style="font-size:17px;font-weight:500">
+						{{task.title}}
+					</div>
+					<div class="row" style="display:block">
+						{%if task.assignee%}
+						<div class="col-sm-auto" style="display:block;float:left;padding-left: 5px">
+							<span>
+								<span style="background-color:#f5f5f5;padding-right: 8px;border-radius:50px;">
+								<i class="fas fa-user-circle fa-lg" style="margin-right:5px"></i>
+								{{task.assignee.full_name}}
+								</span>
+							</span>
+						</div>
+						{% endif %}
+						<div class="col-sm-auto" style="float:right">
+						{{task.due_date}}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+{% endblock %}

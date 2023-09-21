@@ -1,0 +1,24 @@
+{% extends 'employee/profile.html' %}
+{% block updateform %}
+<div class="card card-body" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+{#encryption to upload file#}
+<form action="" method="Post" enctype="multipart/form-data">
+{% csrf_token %}
+	<p><label for="id_profile_picture">Profile picture:</label><br/>
+        Currently: <a href="{{ employee.profile_picture.url }}">Profile</a><br>
+Change:
+<input type="file" name="profile_picture" accept="image/*" id="id_profile_picture" class=" form-control mb-2"></p>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</div>
+
+</form>
+    </div>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    for (var field in form_fields){
+        form_fields[field].className += ' form-control mb-2'
+    }
+</script>
+{%endblock updateform %}

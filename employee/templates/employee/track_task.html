@@ -1,0 +1,141 @@
+{% extends 'employee/index.html' %}
+{% block content %}
+    <div class="container-fluid cover">
+    <h1>{{ employee.full_name }}'s Progress</h1>
+    <div class="card fixed_header" style="margin-bottom:5em">
+        <table class="table list" style="width:auto">
+            <thead class="table-light">
+            <tr>
+                <th style="width: 30%;">
+                    <div class="row">
+                        <div class="col-sm-1" style="padding-top:4px">
+                            <i class="material-icons" style="font-size:16px">sort</i>
+                        </div>
+                        <div class="col-sm-8">Title</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-1" style="padding-top:4px">
+                            <i class="bi bi-calendar-week-fill" style="font-size:16px"></i>
+                        </div>
+                        <div class="col-sm-8">Due Date</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-1" style="padding-top:4px">
+                            <i class="bi bi-arrow-right-circle" style="font-size:16px;display:inline-block"></i>
+                        </div>
+                        <div class="col-sm-8">Status</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row">
+                        <div class="col-sm-1" style="padding-top:4px">
+                            <i class="bi bi-caret-up-square" style="font-size:16px"></i>
+                        </div>
+                        <div class="col-sm-8">Priority</div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="list">
+            {% for task in tasks %}
+            <tr>
+                <td>{{task.title}}</td>
+                <td>{{task.due_date}}</td>
+                <td style="vertical-align:middle">
+                    {% if task.is_to_do %}
+                        <span style="border-radius: 5px;background-color:#ececf1;color:#213254;padding:0px 5px 3px;
+                        font-weight:bold">{{task.status}}</span>
+
+                    {% elif task.is_in_progress %}
+                        <span style="border-radius: 5px;background-color:#b2d4ff;color:#1553ad;padding:0px 5px 3px;
+                        font-weight:bold">{{task.status}}</span>
+
+                    {% elif task.is_completed %}
+                        <span style="border-radius: 5px;background-color:#aaf4d1;color:#0a6f4d;padding:0px 5px 3px;
+                        font-weight:bold">{{task.status}}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            {% if task.is_lowest %}
+                            <i class="material-icons" style="color:dodgerblue">keyboard_double_arrow_down</i>
+                            {% elif task.is_low %}
+                            <i class="material-icons" style="color:dodgerblue">keyboard_arrow_down</i>
+                            {% elif task.is_medium %}
+                            <i class="material-icons" style="color:orange">drag_handle</i>
+                            {% elif task.is_highest %}
+                            <i class="material-icons" style="color:red">keyboard_double_arrow_up</i>
+                            {% elif task.is_critical %}
+                            <i class="material-icons" style="color:red;font-size:24px">report</i>
+                            {% endif %}
+                    </div>
+                    <div class="col-sm-9">
+                    {{task.priority}}
+                    </div>
+                </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{#--------------------------------------------------------#}
+<div class="card card-body text-center" style="width:auto;box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+    <div class="row">
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <h5 class="my-3">Total Tasks</h5>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h2>{{ total_task }}</h2>
+            </div>
+          </div>
+        </div>
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <h5 class="my-3">Tasks Pending</h5>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h2>{{ tasks_pending }}</h2>
+            </div>
+          </div>
+        </div>
+    <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <h5 class="my-3">Tasks Completed</h5>
+
+            <div class="d-flex justify-content-center mt-1">
+                <h2>{{ tasks_completed }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+            <span style="margin-right: 10px"><i class="material-icons" style="color:#0d6efd;vertical-align: middle">stop</i>In Progress</span>
+            <span style="margin-right: 10px"><i class="material-icons" style="color:#198754;vertical-align: middle">stop</i>Done</span>
+            <span><i class="material-icons" style="color:#ffc107;vertical-align: middle">stop</i>To Do</span>
+
+        </div>
+    <div class="row" style="width:90%;margin: 0 auto">
+    <div class="progress" style="padding:0px">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+           style="width: {{ tasks_in_progress }}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">{{ tasks_in_progress }}%</div>
+      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+           style="width: {{ tasks_done }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">{{ tasks_done }}%</div>
+        <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar"
+             style="width: {{ tasks_to_do }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">{{ tasks_to_do }}%</div>
+</div>
+    </div>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+{% endblock %}

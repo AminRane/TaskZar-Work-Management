@@ -1,0 +1,40 @@
+{% extends 'employee/index.html' %}
+{% block content %}
+    <style>
+	.form-label{
+		margin-top:10px;
+		margin-bottom:0px;
+
+	}
+.form-group {
+	margin-top:10px;
+}
+</style>
+<div class="container-fluid">
+	<h3 id="form-title">Edit Task</h3>
+    <form action="" method="Post">
+	{% csrf_token %}
+	{{ form.as_p }}
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</div>
+	{{form.errors}}
+</form>
+    </div>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    var select_fields = document.getElementsByTagName('select')
+	var text_area = document.getElementById('id_description')
+	var date_field = document.getElementById('id_due_date')
+    date_field.type = 'date'
+	text_area.className += 'form-control'
+	text_area.rows = '2'
+    for (var field in form_fields){
+        form_fields[field].className += ' form-control mb-2'
+    }
+    for (var field in select_fields){
+        select_fields[field].className += ' form-control'
+    }
+</script>
+{%endblock %}

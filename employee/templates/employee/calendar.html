@@ -1,0 +1,29 @@
+{% extends 'employee/index.html' %}
+{% block content %}
+    <style>
+    .row.event-list{
+        margin: 0 2px 0 2px
+    }
+    .col-sm-auto.title{
+        width: 80%;
+        padding: 0px
+    }
+    .col-sm-auto.icon{
+        width: 20%;
+        padding: 0px
+    }
+
+    </style>
+<div class="container-fluid" style="width: available">
+	<div id="button1">
+	<a class="btn btn-primary" href="{% url 'calendar' %}?{{ prev_month }}" > Previous Month </a>
+    </div>
+
+    <div id="button2">
+	<a class="btn btn-primary" href="{% url 'calendar' %}?{{ next_month }}"> Next Month </a>
+    </div>
+</div>
+{{ calendar }}
+
+
+{% endblock content %}

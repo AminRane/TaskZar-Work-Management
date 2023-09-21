@@ -1,0 +1,23 @@
+{% extends 'employee/index.html' %}
+{% block content %}
+    <div class="container">
+    <h3>Employee Details</h3>
+    <div class="row">
+    {% for employee in employees %}
+        <div class="col-md-4" style="padding:2em;padding-top:0.5em">
+        <div class="card card-body text-center" onclick="location.href='{% url 'track-task' employee.username %}'"
+             style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75)">
+            <img class="rounded-circle" style="border: 3px solid lightgrey;margin-left: auto;margin-right: auto;padding:1px"
+             height="96" width="96" src="{{ employee.employeeprofile.profile_picture.url }}">
+
+            <h5 class="mt-2 mb-0">{{employee.full_name}}</h5>
+            <p class="text-muted mb-0">{{employee.role}}</p>
+            <p class="text-muted mb-0">{{employee.email}}</p>
+
+          </div>
+
+        </div>
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
