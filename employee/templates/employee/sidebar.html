@@ -1,0 +1,194 @@
+{% load static %}
+<style>
+ li.hover{
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+ }
+</style
+<!-- Vertical navbar -->
+<div class="vertical-nav bg-white " id="sidebar">
+  <div class="py-4 px-3 mb-4 bg-light">
+    <div class="media d-flex align-items-center">
+        {% if request.user.employeeprofile.profile_picture.url %}
+        <img class="rounded-circle" style="border: 3px solid lightgrey" height="60" width="60"
+             src="{{ request.user.employeeprofile.profile_picture.url }}">
+            {% else %}
+      <i class="material-icons md-48">account_circle</i>
+        {% endif %}
+      <div class="media-body ms-1">
+        <h4 class="m-0 user-name">{{request.user.first_name}}</h4>
+        <p class="font-weight-normal text-muted mb-0">{{request.user.email}}</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
+
+  <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item side">
+        <a href="{% url 'profile' %}" class="nav-link text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+
+                    <i class="material-icons" style="font-size:1.1em ">manage_accounts</i>
+                </div>
+                <div class="col-sm-9 list">
+                    Profile
+                </div>
+            </div>
+        </a>
+    </li>
+    <li class="nav-item  side">
+        <a href="{% url 'list' %}" class="nav-link text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+
+                    <i class="bi bi-card-list"></i>
+                </div>
+                <div class="col-sm-9 list">
+                    List
+                </div>
+            </div>
+        </a>
+    </li>
+
+      <li class="nav-item side">
+        <a href="{% url 'board' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+
+                    <i class="bi bi-kanban"></i>
+                </div>
+                <div class="col-sm-9 list">
+                   Board
+                </div>
+            </div>
+        </a>
+      </li>
+
+      <li class="nav-item side">
+        <a href="{% url 'calendar' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+
+                    <i class="bi bi-calendar-day"></i>
+                </div>
+                <div class="col-sm-9 list">
+                   Calendar
+                </div>
+            </div>
+        </a>
+      </li>
+
+      {% if request.user.is_admin %}
+      <li class="nav-item side">
+        <a href="{% url 'register' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+                    <i class="bi bi-person-plus"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Add Employee
+                </div>
+            </div>
+        </a>
+      </li>
+
+      <li class="nav-item side">
+        <a href="{% url 'project-list' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+                    <i class="bi bi-slack"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Projects
+                </div>
+            </div>
+        </a>
+      </li>
+      {% elif request.user.is_part_of_project %}
+      <li class="nav-item side">
+        <a href="{% url 'project-details' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+                    <i class="bi bi-slack"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Project
+                </div>
+            </div>
+        </a>
+      </li>
+      {% endif %}
+      <li class="nav-item side">
+           {% if request.user.is_admin or request.user.is_project_manager %}
+        <a href="#" class="nav-link side text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div class="row list" >
+                <div class="col-sm-3 list" style="padding-left:1em">
+                    <i class="bi bi-file-earmark-plus-fill"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Create Task
+                </div>
+            </div>
+        </a>
+          {% else %}
+          <a href="{% url 'create-task' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list" style="padding-left:1em">
+                    <i class="bi bi-file-earmark-plus-fill"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Create Task
+                </div>
+            </div>
+        </a>
+          {% endif %}
+      </li>
+    {% if request.user.is_admin %}
+      <li class="nav-item side">
+        <a href="{% url 'employee-details' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+                    <i class="bi bi-bar-chart-fill"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Track Tasks
+                </div>
+            </div>
+        </a>
+      </li>
+  {% endif %}
+      <li class="nav-item side">
+        <a href="{% url 'logout' %}" class="nav-link side text-dark">
+            <div class="row list" >
+                <div class="col-sm-3 list">
+                    <i class="bi bi-box-arrow-left"></i>
+
+                </div>
+                <div class="col-sm-9 list">
+                   Logout
+                </div>
+            </div>
+        </a>
+      </li>
+
+
+
+
+  </ul>
+</div>
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        var act = document.querySelector('.nav-link.active')-->
+<!--        console.log('yoo')-->
+<!--        var c = act.closest('.row')-->
+<!--        c.css('background-color:black')-->
+<!--    })-->
+<!--</script>-->
+<!-- End vertical navbar -->

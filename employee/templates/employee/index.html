@@ -1,0 +1,280 @@
+{% load static %}
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>TaskCzar</title>
+    <link rel = "icon" href ="{% static 'images/favicon-32x32.png' %}" type = "image/x-icon">
+    <style>
+
+        .material-icons.md-48 { font-size: 48px; }
+        .cover{
+            width: inherit;
+        }
+        .nav-link.active{
+            text-decoration-color: #2D2F36;
+            background-color: #E8E8E8;
+        }
+        body {
+            background-color: #f3efef;
+          min-height: 100vh;
+          overflow-x: hidden;
+        }
+         .vertical-nav {
+          min-width: 17rem;
+          width: 17rem;
+          height: 100vh;
+          position: fixed;
+          top: 4.8rem;
+          left: 0;
+          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+          transition: all 0.4s;
+        }
+        .page-content {
+          display:inline-block;
+          width: calc(100% - 17rem);
+          margin-left: 17rem;
+          transition: all 0.4s;
+        }
+
+        #sidebar.active {
+          margin-left: -17rem;
+        }
+
+        #content.active {
+          width: 100%;
+          margin: 0;
+        }
+
+        .separator {
+          margin: 3rem 0;
+          border-bottom: 1px dashed #fff;
+        }
+
+        .text-uppercase {
+          letter-spacing: 0.1em;
+        }
+        .text-gray {
+          color: #aaa;
+        }
+        .user-name{
+            text-transform: capitalize;
+        }
+        .nav-link{
+            text-transform: capitalize;
+        }
+        .row.list {
+        height:2em;
+        }
+        .col-sm-3.list{
+            align-items: center;
+            font-size:26px;
+        padding-top:3px;
+            padding-left:1em;
+        }
+        .col-sm-9.list {
+            padding-top:2px;
+            font-size: 20px;
+        font-family: 'Acme', sans-serif;
+        }
+        .nav-item.active{
+            text-decoration-color: #2D2F36;
+            background-color: #E8E8E8;
+        }
+        .nav-item:hover{
+            background: #8ACFE8;
+        }
+        .text-primary{
+            color:#7579e7 ;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -17rem;
+            }
+
+            #sidebar.active {
+                margin-left: 0;
+            }
+
+            #content {
+                width: 100%;
+                margin: 0;
+            }
+
+            #content.active {
+                position: absolute;
+                margin-left: 17rem;
+                width: calc(100% - 17rem);
+            }
+        }
+        /*login page*/
+            .btn-add {
+          font-size: 0.9rem;
+          letter-spacing: 0.05rem;
+          padding: 0.75rem 1rem;
+        }
+        /*end*/
+
+        #button1{
+        float: left;
+            margin-bottom: 0.6em;
+        }
+
+        #button2{
+        float:right;
+                margin-bottom: 0.6em;
+
+        }
+            .calendar {
+          width: 98%;
+          margin: auto;
+          font-size: 13px;
+        }
+
+        .calendar tr, .calendar td {
+          border: 1px solid black;
+
+        }
+
+        .calendar th {
+          padding: 10px;
+          text-align: center;
+          font-size: 18px;
+        }
+        .event{
+            box-shadow: 0px 1px 1px 0px;
+            text-align: center;
+            height:1.7em;
+            padding:2px;
+            color: #212529;
+            margin-bottom:3px;
+        font-family: 'Roboto', sans-serif;
+            border-radius:5px;
+            background-color : #E8E8E8;
+        }
+        .event.done{
+            background-color: #aaf4d1;
+            color: #0a6f4d;
+        }
+        .event.in_progress{
+            background-color: #b2d4ff;
+            color: #1553ad;
+        }
+        .event.to_do{
+            background-color: #ececf1;
+            color: #213254;
+        }
+        .event.due-date{
+            background-color: #ffebe6;
+            color: #d1593d;
+        }
+        .event.past-due{
+            background-color: #ffebe6;
+            color: #d1593d;
+        }
+
+        .event i{
+            font-size:1.1em;
+        }
+        .event col-md-1{
+            padding-left: 0px;
+        }
+        .board-content .row.title{
+            margin-bottom:2px;
+        }
+
+        .calendar td {
+          width: 200px;
+          height: 150px;
+          padding: 20px 0px 0px 5px;
+        }
+        .calendar ul{
+            height: 100%;
+
+            padding-left:2px;
+           list-style-type: none;
+
+        }
+        .month {
+          font-size: 25px;
+        }
+
+        .date {
+          font-size: 16px;
+        }
+
+        .board-content{
+            box-shadow:0px 1px 2px 0px rgba(91,98,98,0.25);
+        }
+
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+          integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rampart+One&family=Bebas+Neue&family=Acme&family=Roboto:wght@500&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+    <div class="row">
+        {% include 'employee/navbar.html' %}
+    </div>
+    {% include 'employee/sidebar.html' %}
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Do you want to create a task for yourself?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-footer">
+        <a href="{% url 'create-task' %}"><button type="button" class="btn btn-primary">Yes</button></a>
+        <a href="{% url 'create-task-for-employee' %}"><button type="button" class="btn btn-secondary">No, for an employee</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="page-content p-5" id="content" style="margin-top:4.5em">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"></script>
+
+
+    <script type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </script>
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTrigger) {
+            return new bootstrap.Popover(popoverTrigger)
+    });
+    </script>
+<script>
+    $(function() {
+    $('#sidebarCollapse').on('click', function() {
+    $('#sidebar, #content').toggleClass('active');
+  });
+});
+</script>
+
+
+
+</body>
+</html>

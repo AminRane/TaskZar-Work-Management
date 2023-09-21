@@ -1,0 +1,96 @@
+{% extends 'employee/index.html' %}
+
+{% block content %}
+    <h2>Task Details</h2>
+    <div class="card card-body" style="box-shadow:2px 2px 2px 2px rgba(97,98,98,0.75);margin-bottom:1em">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Title</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ task.title }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Description</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ task.description }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Assignee</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ task.assignee.full_name }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Due Date</p>
+              </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{task.due_date}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Status</p>
+              </div>
+            <div class="col-sm-9">
+            <a href="{% url 'change-status' task.id %}" style=" text-decoration: none;">
+                {% if task.is_to_do %}
+                        <span style="border-radius: 5px;background-color:#ececf1;color:#213254;padding:0px 5px 3px;
+                        font-weight:bold;box-shadow:0px 2px 1px grey">{{task.status}}</span>
+
+                    {% elif task.is_in_progress %}
+                        <span style="border-radius: 5px;background-color:#b2d4ff;color:#1553ad;padding:0px 5px 3px;
+                        font-weight:bold;box-shadow:0px 2px 1px cornflowerblue">{{task.status}}</span>
+
+                    {% elif task.is_completed %}
+                        <span style="border-radius: 5px;background-color:#aaf4d1;color:#0a6f4d;padding:0px 5px 3px;
+                        font-weight:bold;box-shadow:0px 2px 1px limegreen">{{task.status}}</span>
+                    {% endif %}
+            </a>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Priority</p>
+              </div>
+            <div class="col-sm-9">
+                <div class="row">
+                        <div class="col-sm-auto" style="width:5px">
+                            {% if task.is_lowest %}
+                            <i class="material-icons" style="color:dodgerblue">keyboard_double_arrow_down</i>
+                            {% elif task.is_low %}
+                            <i class="material-icons" style="color:dodgerblue">keyboard_arrow_down</i>
+                            {% elif task.is_medium %}
+                            <i class="material-icons" style="color:orange">drag_handle</i>
+                            {% elif task.is_highest %}
+                            <i class="material-icons" style="color:red">keyboard_double_arrow_up</i>
+                            {% elif task.is_critical %}
+                            <i class="material-icons" style="color:red;font-size:24px">report</i>
+                            {% endif %}
+                    </div>
+                    <div class="col-sm-auto">
+                    {{task.priority}}
+                    </div>
+                </div>
+              </div>
+            </div>
+    </div>
+    {% block status %}
+    {% if task.is_self %}
+        <button class="btn btn-primary" onclick="location.href='{% url 'edit-task-details' task.id %}'">Edit</button>
+    {% endif %}
+
+    {% endblock status %}
+{% endblock %}
